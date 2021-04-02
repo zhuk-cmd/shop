@@ -1,8 +1,10 @@
-asgiref
-Pillow
 Django
+gunicorn
 django-heroku
 whitenoise
 djangorestframework
-django-crispy-forms==1.9.2
-gunicorn
+django-crispy-forms
+asgiref
+Pillow
+pytz
+sqlparse
