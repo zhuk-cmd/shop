@@ -4,3 +4,4 @@ Django
 django-heroku
 whitenoise
 djangorestframework
+crispy_forms
