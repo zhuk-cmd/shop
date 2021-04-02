@@ -1,0 +1,9 @@
+asgiref
+django-crispy-forms
+Pillow
+pytz1
+sqlparse
+Django
+django-heroku
+whitenoise
+djangorestframework

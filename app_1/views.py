@@ -9,14 +9,10 @@ from .mixins import CartMixin
 from .forms import OrderForm
 from .utils import recalc_cart
 
-class MyQ(Q):
-
-    default = 'OR'
-
 
 class BaseView(CartMixin, View):
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         categories = Category.objects.all()
         products = Product.objects.all()
         context = {
@@ -64,7 +60,7 @@ class CategoryDetailView(CartMixin, DetailView):
 
 
 class AddToCartView(CartMixin, View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request, **kwargs):
         product_slug = kwargs.get('slug')
         product = Product.objects.get(slug=product_slug)
         cart_product, created = CartProduct.objects.get_or_create(
@@ -78,7 +74,7 @@ class AddToCartView(CartMixin, View):
 
 
 class DeleteFromCartView(CartMixin, View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request, **kwargs):
         product_slug = kwargs.get('slug')
         product = Product.objects.get(slug=product_slug)
         cart_product = CartProduct.objects.get(
@@ -92,7 +88,7 @@ class DeleteFromCartView(CartMixin, View):
 
 
 class ChangeQTYView(CartMixin, View):
-    def post(self, request, *args, **kwargs):
+    def post(self, request, **kwargs):
         product_slug = kwargs.get('slug')
         product = Product.objects.get(slug=product_slug)
         cart_product = CartProduct.objects.get(
@@ -107,7 +103,7 @@ class ChangeQTYView(CartMixin, View):
 
 
 class CartView(CartMixin, View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         categories = Category.objects.all()
         context = {
             'cart': self.cart,
@@ -117,7 +113,7 @@ class CartView(CartMixin, View):
 
 
 class CheckoutView(CartMixin, View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         categories = Category.objects.all()
         form = OrderForm(request.POST or None)
         context = {
@@ -130,8 +126,7 @@ class CheckoutView(CartMixin, View):
 
 class MakeOrderView(CartMixin, View):
 
-    @transaction.atomic
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         form = OrderForm(request.POST or None)
         customer = Customer.objects.get(user=request.user)
         if form.is_valid():
