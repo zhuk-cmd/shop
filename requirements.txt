@@ -4,4 +4,4 @@ Django
 django-heroku
 whitenoise
 djangorestframework
-crispy_forms
+django-crispy-forms==1.9.2
