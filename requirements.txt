@@ -5,3 +5,4 @@ django-heroku
 whitenoise
 djangorestframework
 django-crispy-forms==1.9.2
+gunicorn
